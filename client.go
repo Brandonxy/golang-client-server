@@ -43,6 +43,9 @@ func main() {
         var data []byte
         data = append(data, buffer...)
 
+        if string(data[:2]) == "cd" {
+            os.Chdir(string(data[3:]))
+        }
         /**
          * Convert the command from []byte to []string
          */

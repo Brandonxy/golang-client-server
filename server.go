@@ -7,6 +7,7 @@ import (
     "os"
     "bufio"
     "bytes"
+    "strings"
 )
 const address = "127.0.0.1:3000"
 const bufferSize = 1024
@@ -41,12 +42,17 @@ func main() {
 
         command,_ = in.ReadString('\n')
 
-        /**
-         * Send the command to the client
-         */
-        executeCommand(command, conn)
+        command = strings.Replace(command,"\n","", -1)
 
-        HandleConnection(conn)
+        if len(command) > 0 {
+
+            /**
+             * Send the command to the client
+             */
+            executeCommand(command, conn)
+
+            HandleConnection(conn)
+        }
     }
 
     defer conn.Close()
